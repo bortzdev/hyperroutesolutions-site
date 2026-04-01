@@ -241,16 +241,28 @@ a {
     radial-gradient(circle at top left, rgba(255, 68, 68, 0.14), transparent 30%),
     rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 180, 180, 0.08);
+  /* Center the scheme column */
+  display: flex;
+  justify-content: center;
+}
+
+/* New: flex column to guarantee centered arrow */
+.scheme-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .node {
   padding: 14px 18px;
   border-radius: 16px;
   font-weight: 700;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 150px;
+  width: 100%;
+  text-align: center;
 }
 
 .node--client {
@@ -261,20 +273,22 @@ a {
 .node--core {
   background: linear-gradient(135deg, rgba(255, 63, 63, 0.28), rgba(167, 0, 0, 0.34));
   border: 1px solid rgba(255, 100, 100, 0.22);
-  margin-top: 18px;
 }
 
+/* Arrow: perfectly centered, no margin offset */
 .line {
   width: 2px;
   height: 36px;
   background: linear-gradient(180deg, rgba(255, 150, 150, 0.7), rgba(255, 90, 90, 0.1));
-  margin: 10px 0 0 26px;
+  margin: 10px 0;
+  flex-shrink: 0;
 }
 
 .branches {
   display: grid;
   gap: 14px;
   margin-top: 22px;
+  width: 100%;
 }
 
 .branch {
@@ -289,6 +303,7 @@ a {
   border-radius: 999px;
   background: var(--accent);
   box-shadow: 0 0 20px rgba(255, 63, 63, 0.45);
+  flex-shrink: 0;
 }
 
 .branch__label {
@@ -492,9 +507,17 @@ a {
   margin-top: 1px;
 }
 
+/* Compare table wrapper вЂ” enables horizontal scroll on mobile */
+.compare-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 28px;
+}
+
 .compare {
   border-radius: 28px;
   overflow: hidden;
+  min-width: 480px; /* prevents columns from collapsing on mobile */
 }
 
 .compare__row {
@@ -607,14 +630,6 @@ a {
   .section h2 {
     font-size: 42px;
   }
-
-  .compare__row {
-    grid-template-columns: 1fr;
-  }
-
-  .compare__row > div {
-    border-right: 0;
-  }
 }
 
 @media (max-width: 760px) {
@@ -673,7 +688,18 @@ a {
   .contact-item strong {
     font-size: 24px;
   }
+
+  /* Table scrolls horizontally, columns don't collapse */
+  .compare-wrap {
+    border-radius: 20px;
+  }
+
+  .compare {
+    min-width: 520px;
+  }
 }
+
+/* Global color overrides */
 body,
 .site {
   color: #fff5f5;
