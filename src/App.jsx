@@ -3,24 +3,24 @@ import './App.css'
 
 const modules = [
   {
-    subtitle: 'Telegram и браузеры',
-    title: 'MTProto + SOCKS5',
-    text: 'Личные прокси для Telegram, браузеров и рабочих программ. Отдельный доступ для каждого сотрудника.',
+    subtitle: 'Для Telegram и рабочих программ',
+    title: 'Личные прокси',
+    text: 'Отдельный доступ на каждого сотрудника. Подключение в один тап по ссылке. Трафик маскируется под обычный HTTPS — провайдер не видит ничего подозрительного и не блокирует.',
   },
   {
-    subtitle: 'Роутер для офиса или дома',
-    title: 'Keenetic',
-    text: 'Нужные сайты работают без лишних действий, остальное идёт напрямую.',
+    subtitle: 'Для офиса или дома',
+    title: 'Роутер с умной маршрутизацией',
+    text: 'Нужные сайты (Instagram, YouTube, рабочие сервисы) идут через защищённый канал. Российские — Сбербанк, Госуслуги, ВК — напрямую, без потери скорости и слетевших авторизаций. Списки обновляются сами.',
   },
   {
-    subtitle: 'Корпоративная сеть',
-    title: 'MikroTik',
-    text: 'Сеть для офиса с разграничением доступа по ролям и документацией.',
+    subtitle: 'Для компании с офисом',
+    title: 'Корпоративная сеть',
+    text: 'Настраиваем сеть в офисе с разграничением по отделам. Круглосуточный мониторинг: сервер пингуется каждые 30 секунд, при сбое сразу алерт в Telegram. Документация и обучение ответственного сотрудника.',
   },
   {
-    subtitle: 'Доступ из других стран',
-    title: 'Российские сервисы из-за рубежа',
-    text: 'Банки и корпоративные системы работают для сотрудников за границей.',
+    subtitle: 'Для сотрудников за границей',
+    title: 'Доступ к российским сервисам',
+    text: 'Сбербанк, Тинькофф, Госуслуги, 1С и корпоративные системы работают как дома. Трафик выходит с российского IP — сервисы видят «своего» пользователя, не блокируют и не требуют лишних проверок.',
   },
 ]
 
@@ -65,13 +65,50 @@ const checks = [
   'Видно, кто подключён. Отключить — один клик.',
 ]
 
+// Highlight marks which price to show in red
 const plans = [
-  { title: 'VPS, базовый', price: 'от 2 290 ₽', period: '/ мес', desc: 'Две страны, команда 10–15 человек. Только VPS.' },
-  { title: 'Российские сервисы из-за рубежа', price: 'от 999 ₽', period: '/ мес', desc: 'Доступ к банкам и корпоративным системам для сотрудников за границей.' },
-  { title: 'Keenetic', price: '11 000 ₽', period: '+ от 2 899 ₽/мес', desc: 'Роутер под ключ. Либо 3 990 ₽/мес — роутер в аренду.' },
-  { title: 'Прокси', price: 'от 999 ₽', period: '/ мес', desc: 'MTProto и SOCKS5 под сотрудников и рабочие задачи.' },
-  { title: 'MikroTik', price: 'индивидуально', period: '', desc: 'Корпоративная сеть с разграничением ролей. Считаем под проект.' },
-  { title: 'Поддержка 24/7', price: 'включено', period: '', desc: 'Круглосуточная поддержка в случае поломки уже входит в ежемесячную плату.' },
+  {
+    title: 'Базовый для команды',
+    price: 'от 2 290 ₽',
+    period: '/ мес',
+    desc: 'Две страны, команда 10–15 человек. Защищённый канал для основных задач.',
+    highlight: true,
+  },
+  {
+    title: 'Российские сервисы из-за рубежа',
+    price: 'от 999 ₽',
+    period: '/ мес',
+    desc: 'Доступ к банкам и корпоративным системам для сотрудников за границей.',
+    highlight: true,
+  },
+  {
+    title: 'Роутер для офиса или дома',
+    price: '11 000 ₽',
+    period: '+ от 2 899 ₽ / мес',
+    desc: 'Роутер с настройкой под ключ. Либо в аренду за 3 990 ₽ / мес.',
+    highlightPeriod: true, // highlight the monthly part, not the device cost
+  },
+  {
+    title: 'Личные прокси',
+    price: 'от 999 ₽',
+    period: '/ мес',
+    desc: 'Отдельный доступ для каждого сотрудника под Telegram и рабочие задачи.',
+    highlight: true,
+  },
+  {
+    title: 'Корпоративная сеть',
+    price: 'индивидуально',
+    period: '',
+    desc: 'Для компаний с офисом и разграничением доступа по отделам. Считаем под проект.',
+    neutral: true,
+  },
+  {
+    title: 'Поддержка 24/7',
+    price: 'включено',
+    period: '',
+    desc: 'Круглосуточная поддержка при поломках уже входит в ежемесячную плату.',
+    neutral: true,
+  },
 ]
 
 function useReveal() {
@@ -104,9 +141,8 @@ function App() {
 
         <div className="container">
           <nav className="nav">
-            <a href="#top" className="brand">
-              <img src="/logo.svg" alt="" className="brand__logo" />
-              <span className="brand__text">HyperRoute</span>
+            <a href="#top" className="brand" aria-label="HyperRoute">
+              <img src="/logo.svg" alt="HyperRoute" className="brand__logo" />
             </a>
             <div className="nav__links">
               <a href="#solutions" className="nav-pill">Решения</a>
@@ -153,7 +189,7 @@ function App() {
         <section className="section section--alt">
           <div className="container">
             <p className="section-label reveal">Проблема</p>
-            <h2 className="reveal">Сотрудники работают откуда угодно. Доступ — никто не контролирует.</h2>
+            <h2 className="reveal">Сотрудники работают откуда угодно<br/>Доступ — никто не контролирует</h2>
             <p className="section-text reveal">
               Команды используют какие-то инструменты, но компания не управляет тем, через что идёт трафик.
             </p>
@@ -176,30 +212,55 @@ function App() {
               Выбираем под формат работы: прокси, роутер, корпоративная сеть или доступ из-за рубежа.
             </p>
 
-            <div className="solutions-layout">
-              <div className="scheme reveal">
-                <div className="scheme__title">Схема доступа</div>
-                <div className="scheme__body">
-                  <div className="node node--client">Сотрудники</div>
-                  <div className="line"></div>
-                  <div className="node node--core">HyperRoute</div>
-                  <div className="branches">
-                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Российские сервисы</div></div>
-                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Зарубежные сервисы</div></div>
-                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Офисы и сотрудники за рубежом</div></div>
-                  </div>
+            {/* SCHEME — full width, before cards */}
+            <div className="scheme reveal">
+              <div className="scheme__head">
+                <div className="scheme__title">Как устроен доступ</div>
+                <div className="scheme__desc">
+                  Трафик идёт через ваш отдельный сервер. Списки маршрутов обновляются автоматически:
+                  рабочие сервисы — через защищённый канал, российские — напрямую без потери скорости.
                 </div>
               </div>
 
-              <div className="solutions-grid">
-                {modules.map((item, i) => (
-                  <article className="card card--module reveal" key={item.title} style={{ transitionDelay: `${i * 60}ms` }}>
-                    <div className="card-subtitle">{item.subtitle}</div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </article>
-                ))}
+              <div className="scheme__flow">
+                <div className="scheme__step">
+                  <div className="scheme__step-num">1</div>
+                  <div className="scheme__step-title">Сотрудники</div>
+                  <div className="scheme__step-text">Офис, дом, любая страна. Подключение в один тап.</div>
+                </div>
+
+                <div className="scheme__arrow">→</div>
+
+                <div className="scheme__step scheme__step--core">
+                  <div className="scheme__step-num">2</div>
+                  <div className="scheme__step-title">Ваш сервер HyperRoute</div>
+                  <div className="scheme__step-text">Отдельный сервер только для вашей компании. Мониторинг 24/7, алерты в Telegram.</div>
+                </div>
+
+                <div className="scheme__arrow">→</div>
+
+                <div className="scheme__step">
+                  <div className="scheme__step-num">3</div>
+                  <div className="scheme__step-title">Сервисы</div>
+                  <div className="scheme__step-text">Рабочие — через канал. Сбербанк, Госуслуги — напрямую.</div>
+                </div>
               </div>
+
+              <div className="scheme__facts">
+                <div className="scheme__fact"><strong>30 сек</strong><span>интервал проверки сервера</span></div>
+                <div className="scheme__fact"><strong>авто</strong><span>обновление списков маршрутов</span></div>
+                <div className="scheme__fact"><strong>24/7</strong><span>поддержка и мониторинг</span></div>
+              </div>
+            </div>
+
+            <div className="solutions-grid">
+              {modules.map((item, i) => (
+                <article className="card card--module reveal" key={item.title} style={{ transitionDelay: `${i * 60}ms` }}>
+                  <div className="card-subtitle">{item.subtitle}</div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
@@ -223,7 +284,7 @@ function App() {
         <section className="section" id="why">
           <div className="container">
             <p className="section-label reveal">Почему не просто VPN</p>
-            <h2 className="reveal">Обычный VPN продаёт место в чужой сети. Мы строим вашу.</h2>
+            <h2 className="reveal">Обычный VPN продаёт место в чужой сети<br/>Мы строим вашу</h2>
 
             <div className="why-grid">
               <div className="why-checks">
@@ -253,7 +314,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section section--alt" id="pricing">
+        <section className="section section--alt section--pricing" id="pricing">
           <div className="container">
             <p className="section-label reveal">Цены</p>
             <h2 className="reveal">Считаем индивидуально под вашу компанию</h2>
@@ -267,8 +328,17 @@ function App() {
                 <article className="card card--price reveal" key={p.title} style={{ transitionDelay: `${i * 60}ms` }}>
                   <div className="card-subtitle">{p.title}</div>
                   <div className="price-line">
-                    <span className="price">{p.price}</span>
-                    {p.period && <span className="price-period">{p.period}</span>}
+                    {p.highlightPeriod ? (
+                      <>
+                        <span className="price price--neutral">{p.price}</span>
+                        <span className="price price--hl">{p.period}</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={`price ${p.neutral ? 'price--neutral' : 'price--hl'}`}>{p.price}</span>
+                        {p.period && <span className="price-period">{p.period}</span>}
+                      </>
+                    )}
                   </div>
                   <p>{p.desc}</p>
                 </article>
@@ -276,7 +346,7 @@ function App() {
             </div>
 
             <div className="support-note reveal">
-              <strong>Поддержка 24/7 включена в ежемесячную плату.</strong>
+              <strong>Поддержка 24/7 включена в ежемесячную плату</strong>
               <span>В случае поломки чиним круглосуточно — без дополнительной оплаты.</span>
             </div>
           </div>
@@ -309,8 +379,7 @@ function App() {
         <div className="container footer__inner">
           <div>
             <div className="footer__brand">
-              <img src="/logo.svg" alt="" className="brand__logo" />
-              <span>HyperRoute</span>
+              <img src="/logo.svg" alt="HyperRoute" className="footer__logo" />
             </div>
             <div className="footer__text">
               Корпоративный интернет-доступ для компаний с офисами, распределёнными командами и сотрудниками за рубежом.
