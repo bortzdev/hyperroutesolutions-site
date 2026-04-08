@@ -66,42 +66,12 @@ const checks = [
 ]
 
 const plans = [
-  {
-    title: 'VPS, базовый',
-    price: 'от 2290 ₽',
-    period: '/ мес',
-    desc: 'Две страны, команда 10–15 человек. Только VPS.',
-  },
-  {
-    title: 'Российские сервисы из-за рубежа',
-    price: 'от 999 ₽',
-    period: '/ мес',
-    desc: 'Доступ к банкам и корпоративным системам для сотрудников за границей.',
-  },
-  {
-    title: 'Keenetic',
-    price: '11 000 ₽',
-    period: '+ от 2 899 ₽/мес',
-    desc: 'Роутер под ключ. Либо 3 990 ₽/мес — роутер в аренду.',
-  },
-  {
-    title: 'Прокси',
-    price: 'от 999 ₽',
-    period: '/ мес',
-    desc: 'MTProto и SOCKS5 под сотрудников и рабочие задачи.',
-  },
-  {
-    title: 'MikroTik',
-    price: 'индивидуально',
-    period: '',
-    desc: 'Корпоративная сеть с разграничением ролей. Считаем под проект.',
-  },
-  {
-    title: 'Поддержка 24/7',
-    price: 'включено',
-    period: '',
-    desc: 'Круглосуточная поддержка в случае поломки уже входит в ежемесячную плату.',
-  },
+  { title: 'VPS, базовый', price: 'от 2 290 ₽', period: '/ мес', desc: 'Две страны, команда 10–15 человек. Только VPS.' },
+  { title: 'Российские сервисы из-за рубежа', price: 'от 999 ₽', period: '/ мес', desc: 'Доступ к банкам и корпоративным системам для сотрудников за границей.' },
+  { title: 'Keenetic', price: '11 000 ₽', period: '+ от 2 899 ₽/мес', desc: 'Роутер под ключ. Либо 3 990 ₽/мес — роутер в аренду.' },
+  { title: 'Прокси', price: 'от 999 ₽', period: '/ мес', desc: 'MTProto и SOCKS5 под сотрудников и рабочие задачи.' },
+  { title: 'MikroTik', price: 'индивидуально', period: '', desc: 'Корпоративная сеть с разграничением ролей. Считаем под проект.' },
+  { title: 'Поддержка 24/7', price: 'включено', period: '', desc: 'Круглосуточная поддержка в случае поломки уже входит в ежемесячную плату.' },
 ]
 
 function useReveal() {
@@ -116,7 +86,7 @@ function useReveal() {
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
     els.forEach((el) => io.observe(el))
     return () => io.disconnect()
@@ -128,14 +98,16 @@ function App() {
 
   return (
     <div className="site">
-      {/* FIRST SCREEN — clean */}
       <section className="hero">
         <div className="hero__blur hero__blur--left"></div>
         <div className="hero__blur hero__blur--right"></div>
 
         <div className="container">
           <nav className="nav">
-            <div className="brand">HyperRoute</div>
+            <a href="#top" className="brand">
+              <img src="/logo.svg" alt="" className="brand__logo" />
+              <span className="brand__text">HyperRoute</span>
+            </a>
             <div className="nav__links">
               <a href="#solutions" className="nav-pill">Решения</a>
               <a href="#why" className="nav-pill">Почему мы</a>
@@ -151,20 +123,17 @@ function App() {
               Отдельная управляемая сеть под вашу компанию. Без публичных сервисов.
             </p>
             <div className="hero__actions reveal">
-              <a className="btn btn--primary" href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">
+              <a className="btn btn--primary btn--lg" href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">
                 Обсудить внедрение
               </a>
-              <a className="btn btn--secondary" href="#solutions">
+              <a className="btn btn--secondary btn--lg" href="#solutions">
                 Посмотреть решения
               </a>
             </div>
           </div>
         </div>
-
-        <div className="hero__scroll">↓</div>
       </section>
 
-      {/* SECOND SCREEN — benefits */}
       <section className="section section--benefits">
         <div className="container">
           <p className="section-label reveal">Что получает компания</p>
@@ -181,7 +150,6 @@ function App() {
       </section>
 
       <main>
-        {/* PROBLEM — shortened */}
         <section className="section section--alt">
           <div className="container">
             <p className="section-label reveal">Проблема</p>
@@ -200,7 +168,6 @@ function App() {
           </div>
         </section>
 
-        {/* SOLUTIONS with scheme */}
         <section className="section" id="solutions">
           <div className="container">
             <p className="section-label reveal">Решения</p>
@@ -209,43 +176,34 @@ function App() {
               Выбираем под формат работы: прокси, роутер, корпоративная сеть или доступ из-за рубежа.
             </p>
 
-            {/* Scheme moved here, no glass background */}
-            <div className="scheme reveal">
-              <div className="scheme__title">Схема доступа</div>
-              <div className="scheme__body">
-                <div className="node node--client">Сотрудники</div>
-                <div className="line"></div>
-                <div className="node node--core">HyperRoute</div>
-                <div className="branches">
-                  <div className="branch">
-                    <span className="branch__dot"></span>
-                    <div className="branch__label">Российские сервисы</div>
-                  </div>
-                  <div className="branch">
-                    <span className="branch__dot"></span>
-                    <div className="branch__label">Зарубежные сервисы</div>
-                  </div>
-                  <div className="branch">
-                    <span className="branch__dot"></span>
-                    <div className="branch__label">Офисы и сотрудники за рубежом</div>
+            <div className="solutions-layout">
+              <div className="scheme reveal">
+                <div className="scheme__title">Схема доступа</div>
+                <div className="scheme__body">
+                  <div className="node node--client">Сотрудники</div>
+                  <div className="line"></div>
+                  <div className="node node--core">HyperRoute</div>
+                  <div className="branches">
+                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Российские сервисы</div></div>
+                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Зарубежные сервисы</div></div>
+                    <div className="branch"><span className="branch__dot"></span><div className="branch__label">Офисы и сотрудники за рубежом</div></div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="grid grid--2">
-              {modules.map((item, i) => (
-                <article className="card card--module reveal" key={item.title} style={{ transitionDelay: `${i * 60}ms` }}>
-                  <div className="card-subtitle">{item.subtitle}</div>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </article>
-              ))}
+              <div className="solutions-grid">
+                {modules.map((item, i) => (
+                  <article className="card card--module reveal" key={item.title} style={{ transitionDelay: `${i * 60}ms` }}>
+                    <div className="card-subtitle">{item.subtitle}</div>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* PROCESS */}
         <section className="section section--alt" id="process">
           <div className="container">
             <p className="section-label reveal">Внедрение</p>
@@ -262,7 +220,6 @@ function App() {
           </div>
         </section>
 
-        {/* WHY */}
         <section className="section" id="why">
           <div className="container">
             <p className="section-label reveal">Почему не просто VPN</p>
@@ -286,7 +243,7 @@ function App() {
                       key={row[0] + index}
                     >
                       {row.map((cell, i) => (
-                        <div key={i}>{cell}</div>
+                        <div key={i} className={i === 2 && index !== 0 ? 'compare__cell--hl' : ''}>{cell}</div>
                       ))}
                     </div>
                   ))}
@@ -296,7 +253,6 @@ function App() {
           </div>
         </section>
 
-        {/* PRICING */}
         <section className="section section--alt" id="pricing">
           <div className="container">
             <p className="section-label reveal">Цены</p>
@@ -306,7 +262,7 @@ function App() {
               Ниже — минимальные тарифы. Точные цифры — в Telegram.
             </p>
 
-            <div className="grid grid--3 pricing-grid">
+            <div className="pricing-grid">
               {plans.map((p, i) => (
                 <article className="card card--price reveal" key={p.title} style={{ transitionDelay: `${i * 60}ms` }}>
                   <div className="card-subtitle">{p.title}</div>
@@ -326,26 +282,23 @@ function App() {
           </div>
         </section>
 
-        {/* CONTACT */}
         <section className="section section--contact" id="contacts">
           <div className="container">
             <div className="cta reveal">
-              <div>
+              <div className="cta__left">
                 <p className="section-label">Контакты</p>
                 <h2>Обсудим, как это будет работать в вашей компании</h2>
                 <p className="section-text">
                   Нужен надёжный управляемый доступ — начнём с разбора вашей ситуации.
                 </p>
-              </div>
-
-              <div className="cta__box">
-                <div className="contact-item">
-                  <span>Telegram</span>
-                  <strong>@HyperRoute</strong>
-                </div>
-                <a className="btn btn--primary btn--full" href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">
+                <a className="btn btn--primary btn--lg" href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">
                   Написать в Telegram
                 </a>
+              </div>
+
+              <div className="cta__qr">
+                <img src="/qr.jpg" alt="QR-код Telegram" />
+                <div className="cta__qr-label">Отсканируйте QR<br/>чтобы написать в Telegram</div>
               </div>
             </div>
           </div>
@@ -355,7 +308,10 @@ function App() {
       <footer className="footer">
         <div className="container footer__inner">
           <div>
-            <div className="footer__brand">HyperRoute</div>
+            <div className="footer__brand">
+              <img src="/logo.svg" alt="" className="brand__logo" />
+              <span>HyperRoute</span>
+            </div>
             <div className="footer__text">
               Корпоративный интернет-доступ для компаний с офисами, распределёнными командами и сотрудниками за рубежом.
             </div>
@@ -365,7 +321,7 @@ function App() {
             <a href="#solutions">Решения</a>
             <a href="#why">Почему мы</a>
             <a href="#pricing">Цены</a>
-            <a href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">@HyperRoute</a>
+            <a href="https://t.me/HyperRoute" target="_blank" rel="noreferrer">Telegram</a>
           </div>
         </div>
       </footer>
